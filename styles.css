@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+:root {
+    --primary-color: #1DA1F2;
+    --success-color: #17BF63;
+    --warning-color: #FFAD1F;
+    --danger-color: #E0245E;
+    --background-color: #F5F8FA;
+    --text-color: #212529;
+    --light-gray: #e9ecef;
+    --dark-gray: #6c757d;
+}
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-color);
+}
+
+.container {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+h1 {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+}
+
+.timer-display {
+    font-size: 64px;
+    font-weight: 300;
+    color: var(--text-color);
+    letter-spacing: -1px;
+}
+
+.colon {
+    opacity: 0.5;
+    margin: 0 2px;
+}
+
+.input-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.time-input {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+}
+
+input {
+    padding: 12px;
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+label {
+    color: var(--dark-gray);
+    font-size: 14px;
+}
+
+.button-section {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+#start-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#pause-btn {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+}
+
+#reset-btn {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 30px 20px;
+    }
+    
+    .timer-display {
+        font-size: 48px;
+    }
+    
+    .input-section {
+        flex-direction: row;
+    }
+    
+    .time-input {
+        width: auto;
+    }
+    
+    .button-section {
+        flex-direction: row;
+    }
+}
+
+.navbar {
+    background-color: var(--primary-color) !important;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(29, 161, 242, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #1991DA;
+    border-color: #1991DA;
+}
+
+.table th {
+    border-top: none;
+    background-color: #f8f9fa;
+}
+
+.status-complete {
+    color: var(--success-color);
+}
+
+.status-partial {
+    color: var(--warning-color);
+}
+
+.status-failed {
+    color: var(--danger-color);
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-group .btn {
+        margin-bottom: 0.5rem;
+        border-radius: 0.25rem !important;
+    }
+
+    .chart-container {
+        height: 250px;
+    }
+}
+
+/* Loading indicator */
+.loading {
+    position: relative;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2rem;
+    height: 2rem;
+    margin: -1rem 0 0 -1rem;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Toast notifications */
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1050;
+}
+
+.toast {
+    background-color: #fff;
+    margin-bottom: 0.5rem;
+} 

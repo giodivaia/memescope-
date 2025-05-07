@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Minimal dark scrollbar for page and token columns */
+body, .token-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #23232b #18181c;
+}
+body::-webkit-scrollbar, .token-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background: #18181c;
+}
+body::-webkit-scrollbar-thumb, .token-scrollbar::-webkit-scrollbar-thumb {
+  background: #23232b;
+  border-radius: 8px;
+}
+body::-webkit-scrollbar-thumb:hover, .token-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #44445a;
+}
+
+body {
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+  font-family: 'Inter', sans-serif;
+  color: white;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.card-wrapper {
+  background: #111111;
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.card-wrapper:hover {
+  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+} 
