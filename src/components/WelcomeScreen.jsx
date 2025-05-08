@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 const cards = [
   {
-    title: 'Templates',
+    title: 'My Feed',
     icon: (
       <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <line x1="7" y1="9" x2="17" y2="9" />
+        <line x1="7" y1="13" x2="13" y2="13" />
       </svg>
     ),
-    desc: 'Start with a pre-built strategy template'
+    desc: 'View your personalized trading feed'
   },
   {
     title: 'Create',
@@ -34,17 +36,16 @@ const cards = [
 
 export default function WelcomeScreen() {
   const navigate = useNavigate();
+
   return (
     <div className="relative min-h-screen w-full bg-gradient-to-b from-zinc-900 via-black to-zinc-900">
       {/* Subtle background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(59,130,246,0.08),_transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(168,85,247,0.08),_transparent_50%)]" />
-      
       <div className="relative z-10 min-h-[80vh] flex flex-col items-center justify-center px-4 py-12">
-        <div className="text-center mb-16">
-          <h1 className="mb-4 flex justify-center items-center w-full">
-            <style>
-              {`
+        <div className="text-center mb-12">
+          <h1 className="mb-2 flex justify-center items-center w-full">
+            <style>{`
                 .scope-logo-animate {
                   background-size: 200% 200%;
                   animation: shimmer 2.5s linear infinite;
@@ -53,9 +54,8 @@ export default function WelcomeScreen() {
                   0% { background-position: 0% 50%; }
                   100% { background-position: 100% 50%; }
                 }
-              `}
-            </style>
-            <div className="mb-8 flex flex-col items-center w-full">
+              `}</style>
+            <div className="mb-4 flex flex-col items-center w-full">
               <span className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-white via-purple-400 to-blue-400 bg-clip-text text-transparent text-center select-none scope-logo-animate" style={{ letterSpacing: '0.08em' }}>
                 SCOPE
                 <sup className="align-super text-2xl md:text-3xl ml-1 font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-400 to-pink-400">2</sup>
@@ -63,40 +63,38 @@ export default function WelcomeScreen() {
               <div className="mt-2 w-1/2 max-w-xs h-1 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 blur-sm opacity-60"></div>
             </div>
           </h1>
-          <p className="text-2xl text-zinc-400 font-medium">
+          <p className="text-2xl text-zinc-400 font-medium mt-2">
             Choose a trading workflow to get started
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full px-6">
-          {cards.map(card => (
-            <button
-              key={card.title}
-              className="group focus:outline-none"
-              onClick={() => {
-                const route = `/${card.title.toLowerCase()}`;
-                navigate(route);
-              }}
-              type="button"
-            >
-              <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-purple-500/10 to-blue-500/20 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500" />
-                <div className="relative bg-black/40 backdrop-blur-sm border border-zinc-800 rounded-xl p-8 transition-all duration-300 group-hover:border-blue-500/20">
-                  <div className="flex justify-center mb-4">
-                    <div className="transform transition-all duration-300 group-hover:scale-110 group-hover:translate-y-[-4px] group-hover:text-blue-400">
+        <div className="w-full max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {cards.map(card => (
+              <button
+                key={card.title}
+                className="group focus:outline-none transition-all duration-200"
+                onClick={() => {
+                  const route = card.title === 'My Feed' ? '/feed' : `/${card.title.toLowerCase()}`;
+                  navigate(route);
+                }}
+                type="button"
+              >
+                <div className="relative h-full flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm border border-zinc-800 rounded-2xl p-10 min-h-[220px] shadow-md group-hover:shadow-blue-500/20 group-hover:border-blue-500/40 transition-all duration-300">
+                  <div className="flex justify-center mb-6">
+                    <div className="text-5xl md:text-6xl transition-all duration-300 group-hover:scale-110 group-hover:text-blue-400">
                       {card.icon}
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors text-center">
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors text-center">
                     {card.title}
                   </h3>
-                  <p className="text-zinc-400 text-center">
+                  <p className="text-zinc-400 text-base text-center font-normal">
                     {card.desc}
                   </p>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

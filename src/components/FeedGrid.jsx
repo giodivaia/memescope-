@@ -9,7 +9,7 @@ const FEED_COLUMNS = [
   { key: 'new', label: 'newly created' },
   { key: 'graduating', label: 'about to graduate' },
   { key: 'graduated', label: 'graduated' },
-  { key: 'featured', label: 'featured' },
+  { key: 'trending', label: 'trending' },
 ];
 
 const FILTER_CATEGORIES = [
@@ -32,126 +32,107 @@ const CATEGORY_TO_KEY = {
   'newly created': 'new',
   'about to graduate': 'graduating',
   'graduated': 'graduated',
-  'featured': 'featured',
+  'trending': 'trending',
   // Add more mappings as needed for your categories
 };
 
 // Mock data for each column
 const MOCK_FEEDS = {
   new: [
-    {
-      icon: '🧢', name: 'FEDORACOIN', subtitle: 'The First Memecoin', roi: '+28%', holders: 0, dh: '0%', t10: '0%', mc: '$4.1K', ath: '$4.1K', vol: '$4.1K',
-    },
-    {
-      icon: '📱', name: 'MOBILE', subtitle: 'Motorola DynaTAC 8000X', roi: '+13%', holders: 0, dh: '0%', t10: '0%', mc: '$4.1K', ath: '$4.1K', vol: '$4.1K',
-    },
-    {
-      icon: '💩', name: 'SOTUS', subtitle: 'Shitter Of The United States', roi: '+14%', holders: 0, dh: '0%', t10: '0%', mc: '$4.1K', ath: '$4.1K', vol: '$4.1K',
-    },
     { icon: '🦄', name: 'UNICORN', subtitle: 'Magical Token', roi: '+8%', holders: 2, dh: '1%', t10: '0%', mc: '$2.1K', ath: '$2.2K', vol: '$1.1K' },
-    { icon: '🐉', name: 'DRAGON', subtitle: 'Fire Breather', roi: '+22%', holders: 3, dh: '2%', t10: '1%', mc: '$3.2K', ath: '$3.5K', vol: '$2.2K' },
-    { icon: '🦊', name: 'FOX', subtitle: 'Clever Coin', roi: '+5%', holders: 1, dh: '0%', t10: '0%', mc: '$1.1K', ath: '$1.1K', vol: '$0.9K' },
-    { icon: '🐸', name: 'FROG', subtitle: 'Jumping High', roi: '+12%', holders: 2, dh: '1%', t10: '0%', mc: '$1.8K', ath: '$2.0K', vol: '$1.0K' },
-    { icon: '🦅', name: 'EAGLE', subtitle: 'Soaring Token', roi: '+18%', holders: 2, dh: '1%', t10: '0%', mc: '$2.5K', ath: '$2.7K', vol: '$1.5K' },
+    { icon: '🍔', name: 'BURGER', subtitle: 'Tasty Profits', roi: '+7%', holders: 2, dh: '1%', t10: '0%', mc: '$1.9K', ath: '$2.0K', vol: '$0.3K' },
+    { icon: '🎩', name: 'TOPHAT', subtitle: 'Classy Gains', roi: '+12%', holders: 1, dh: '1%', t10: '0%', mc: '$2.2K', ath: '$2.3K', vol: '$0.4K' },
+    { icon: '🍕', name: 'PIZZA', subtitle: 'Slice of Gains', roi: '+8%', holders: 2, dh: '1%', t10: '0%', mc: '$2.1K', ath: '$2.2K', vol: '$0.4K' },
+    { icon: '🚀', name: 'ROCKET', subtitle: 'To the Moon', roi: '+20%', holders: 2, dh: '1%', t10: '0%', mc: '$3.0K', ath: '$3.1K', vol: '$0.8K' },
+    { icon: '🍦', name: 'ICECREAM', subtitle: 'Cool Gains', roi: '+11%', holders: 2, dh: '1%', t10: '0%', mc: '$2.7K', ath: '$2.8K', vol: '$0.7K' },
+    { icon: '🎲', name: 'DICE', subtitle: 'Roll the Profits', roi: '+15%', holders: 2, dh: '1%', t10: '0%', mc: '$2.5K', ath: '$2.6K', vol: '$0.6K' },
+    { icon: '🧃', name: 'JUICE', subtitle: 'Fresh Profits', roi: '+47%', holders: 2, dh: '1%', t10: '0%', mc: '$9.9K', ath: '$10.0K', vol: '$4.3K' },
   ],
   graduating: [
-    {
-      icon: '🏳️‍🌈', name: 'GAY', subtitle: 'Gay Nigga Season', roi: '-4%', holders: 35, dh: '10%', t10: '19%', mc: '$41.6K', ath: '$44.5K', vol: '$6.4K',
-    },
-    {
-      icon: '🇺🇸', name: 'USCR', subtitle: 'U.S. Crypto Reserve Index', roi: '+3%', holders: 27, dh: '72%', t10: '73%', mc: '$42.8K', ath: '$42.7K', vol: '$12.4K',
-    },
-    {
-      icon: '🧑‍⚖️', name: 'pope fong', subtitle: 'pope fong', roi: '+116%', holders: 84, dh: '4%', t10: '26%', mc: '$41.6K', ath: '$41.6K', vol: '$10.1K',
-    },
-    { icon: '🦍', name: 'APE', subtitle: 'Ape Strong', roi: '+9%', holders: 12, dh: '3%', t10: '2%', mc: '$5.2K', ath: '$5.5K', vol: '$2.2K' },
-    { icon: '🐺', name: 'WOLF', subtitle: 'Wolf Pack', roi: '+15%', holders: 8, dh: '2%', t10: '1%', mc: '$3.8K', ath: '$4.0K', vol: '$1.8K' },
-    { icon: '🦁', name: 'LION', subtitle: 'King of Tokens', roi: '+21%', holders: 10, dh: '4%', t10: '2%', mc: '$6.1K', ath: '$6.3K', vol: '$3.1K' },
-    { icon: '🐻', name: 'BEAR', subtitle: 'Bear Market', roi: '-7%', holders: 6, dh: '1%', t10: '0%', mc: '$2.0K', ath: '$2.1K', vol: '$0.8K' },
-    { icon: '🐼', name: 'PANDA', subtitle: 'Cute Coin', roi: '+11%', holders: 7, dh: '2%', t10: '1%', mc: '$2.7K', ath: '$2.9K', vol: '$1.2K' },
+    { icon: '🐉', name: 'DRAGON', subtitle: 'Fire Breather', roi: '+22%', holders: 3, dh: '2%', t10: '1%', mc: '$3.2K', ath: '$3.5K', vol: '$2.2K' },
+    { icon: '🍩', name: 'DONUT', subtitle: 'Sweet Profits', roi: '+10%', holders: 2, dh: '1%', t10: '0%', mc: '$2.5K', ath: '$2.6K', vol: '$0.6K' },
+    { icon: '🎮', name: 'GAMER', subtitle: 'Play to Earn', roi: '+18%', holders: 2, dh: '1%', t10: '0%', mc: '$2.8K', ath: '$2.9K', vol: '$0.7K' },
+    { icon: '🍉', name: 'WATERMELON', subtitle: 'Juicy Profits', roi: '+12%', holders: 2, dh: '1%', t10: '0%', mc: '$2.9K', ath: '$3.0K', vol: '$0.8K' },
+    { icon: '🛸', name: 'UFO', subtitle: 'Alien Profits', roi: '+22%', holders: 2, dh: '1%', t10: '0%', mc: '$3.2K', ath: '$3.3K', vol: '$0.9K' },
+    { icon: '🥑', name: 'AVOCADO', subtitle: 'Healthy Gains', roi: '+19%', holders: 2, dh: '1%', t10: '0%', mc: '$4.3K', ath: '$4.4K', vol: '$1.5K' },
+    { icon: '🍗', name: 'CHICKEN', subtitle: 'Tasty Returns', roi: '+29%', holders: 2, dh: '1%', t10: '0%', mc: '$6.3K', ath: '$6.4K', vol: '$2.5K' },
+    { icon: '💡', name: 'BULB', subtitle: 'Bright Ideas', roi: '+10%', holders: 2, dh: '1%', t10: '0%', mc: '$2.0K', ath: '$2.1K', vol: '$0.3K' },
   ],
   graduated: [
-    {
-      icon: '🟧', name: 'FEDORA', subtitle: 'The First Memecoin', roi: '+2.2K%', holders: 309, dh: '40%', t10: '10%', mc: '$60.2K', ath: '$60.2K', vol: '$161.5K',
-    },
-    {
-      icon: '🧑‍🎨', name: 'stickman', subtitle: 'stickman', roi: '+49%', holders: 122, dh: '26%', t10: '26%', mc: '$28.4K', ath: '$32.4K', vol: '$49.4K',
-    },
-    {
-      icon: '🧠', name: 'GENIUS', subtitle: 'Genius AI', roi: '+4.7%', holders: 6, dh: '3%', t10: '3%', mc: '$2.4K', ath: '$2.4K', vol: '$2.4K',
-    },
-    { icon: '🦊', name: 'FOX', subtitle: 'Clever Coin', roi: '+5%', holders: 1, dh: '0%', t10: '0%', mc: '$1.1K', ath: '$1.1K', vol: '$0.9K' },
-    { icon: '🐸', name: 'FROG', subtitle: 'Jumping High', roi: '+12%', holders: 2, dh: '1%', t10: '0%', mc: '$1.8K', ath: '$2.0K', vol: '$1.0K' },
-    { icon: '🦅', name: 'EAGLE', subtitle: 'Soaring Token', roi: '+18%', holders: 2, dh: '1%', t10: '0%', mc: '$2.5K', ath: '$2.7K', vol: '$1.5K' },
-    { icon: '🦄', name: 'UNICORN', subtitle: 'Magical Token', roi: '+8%', holders: 2, dh: '1%', t10: '0%', mc: '$2.1K', ath: '$2.2K', vol: '$1.1K' },
-    { icon: '🐉', name: 'DRAGON', subtitle: 'Fire Breather', roi: '+22%', holders: 3, dh: '2%', t10: '1%', mc: '$3.2K', ath: '$3.5K', vol: '$2.2K' },
+    { icon: '🍕', name: 'PIZZA', subtitle: 'Slice of Gains', roi: '+8%', holders: 2, dh: '1%', t10: '0%', mc: '$2.1K', ath: '$2.2K', vol: '$0.4K' },
+    { icon: '🍷', name: 'WINE', subtitle: 'Vintage Profits', roi: '+40%', holders: 2, dh: '1%', t10: '0%', mc: '$8.5K', ath: '$8.6K', vol: '$3.6K' },
+    { icon: '🧠', name: 'BRAIN', subtitle: 'Smart Gains', roi: '+24%', holders: 2, dh: '1%', t10: '0%', mc: '$3.4K', ath: '$3.5K', vol: '$1.0K' },
+    { icon: '🍰', name: 'CAKE', subtitle: 'Sweet Returns', roi: '+34%', holders: 2, dh: '1%', t10: '0%', mc: '$7.3K', ath: '$7.4K', vol: '$3.0K' },
+    { icon: '🥨', name: 'PRETZEL', subtitle: 'Twisty Returns', roi: '+25%', holders: 2, dh: '1%', t10: '0%', mc: '$5.5K', ath: '$5.6K', vol: '$2.1K' },
+    { icon: '🚀', name: 'ROCKET', subtitle: 'To the Moon', roi: '+20%', holders: 2, dh: '1%', t10: '0%', mc: '$3.0K', ath: '$3.1K', vol: '$0.8K' },
+    { icon: '🍦', name: 'ICECREAM', subtitle: 'Cool Gains', roi: '+11%', holders: 2, dh: '1%', t10: '0%', mc: '$2.7K', ath: '$2.8K', vol: '$0.7K' },
+    { icon: '🎲', name: 'DICE', subtitle: 'Roll the Profits', roi: '+15%', holders: 2, dh: '1%', t10: '0%', mc: '$2.5K', ath: '$2.6K', vol: '$0.6K' },
   ],
-  featured: [
-    {
-      icon: '🐱', name: 'CKV', subtitle: 'Crypto KittyVerse', roi: '+10%', holders: 2, dh: '7%', t10: '5%', mc: '$4.5K', ath: '$5.5K', vol: '$2.0K',
-    },
-    {
-      icon: '🦸‍♂️', name: 'SUS', subtitle: 'Super Ultra Sendor', roi: '+513%', holders: 5, dh: '-9%', t10: '22%', mc: '$14.4K', ath: '$27.2K', vol: '$58.3K',
-    },
-    {
-      icon: '🌸', name: 'MURAKAMI', subtitle: 'MURAKAMI', roi: '+3%', holders: 9, dh: '0.39%', t10: '7%', mc: '$4.3K', ath: '$4.7K', vol: '$419',
-    },
-    { icon: '🦍', name: 'APE', subtitle: 'Ape Strong', roi: '+9%', holders: 12, dh: '3%', t10: '2%', mc: '$5.2K', ath: '$5.5K', vol: '$2.2K' },
-    { icon: '🐺', name: 'WOLF', subtitle: 'Wolf Pack', roi: '+15%', holders: 8, dh: '2%', t10: '1%', mc: '$3.8K', ath: '$4.0K', vol: '$1.8K' },
-    { icon: '🦁', name: 'LION', subtitle: 'King of Tokens', roi: '+21%', holders: 10, dh: '4%', t10: '2%', mc: '$6.1K', ath: '$6.3K', vol: '$3.1K' },
-    { icon: '🐻', name: 'BEAR', subtitle: 'Bear Market', roi: '-7%', holders: 6, dh: '1%', t10: '0%', mc: '$2.0K', ath: '$2.1K', vol: '$0.8K' },
-    { icon: '🐼', name: 'PANDA', subtitle: 'Cute Coin', roi: '+11%', holders: 7, dh: '2%', t10: '1%', mc: '$2.7K', ath: '$2.9K', vol: '$1.2K' },
+  trending: [
+    { icon: '🍩', name: 'DONUT', subtitle: 'Sweet Profits', roi: '+10%', holders: 2, dh: '1%', t10: '0%', mc: '$2.5K', ath: '$2.6K', vol: '$0.6K' },
+    { icon: '🍺', name: 'BEER', subtitle: 'Bubbly Returns', roi: '+39%', holders: 2, dh: '1%', t10: '0%', mc: '$8.3K', ath: '$8.4K', vol: '$3.5K' },
+    { icon: '🎮', name: 'GAMER', subtitle: 'Play to Earn', roi: '+18%', holders: 2, dh: '1%', t10: '0%', mc: '$2.8K', ath: '$2.9K', vol: '$0.7K' },
+    { icon: '🍉', name: 'WATERMELON', subtitle: 'Juicy Profits', roi: '+12%', holders: 2, dh: '1%', t10: '0%', mc: '$2.9K', ath: '$3.0K', vol: '$0.8K' },
+    { icon: '🥑', name: 'AVOCADO', subtitle: 'Healthy Gains', roi: '+19%', holders: 2, dh: '1%', t10: '0%', mc: '$4.3K', ath: '$4.4K', vol: '$1.5K' },
+    { icon: '🍗', name: 'CHICKEN', subtitle: 'Tasty Returns', roi: '+29%', holders: 2, dh: '1%', t10: '0%', mc: '$6.3K', ath: '$6.4K', vol: '$2.5K' },
+    { icon: '💡', name: 'BULB', subtitle: 'Bright Ideas', roi: '+10%', holders: 2, dh: '1%', t10: '0%', mc: '$2.0K', ath: '$2.1K', vol: '$0.3K' },
+    { icon: '🧃', name: 'JUICE', subtitle: 'Fresh Profits', roi: '+47%', holders: 2, dh: '1%', t10: '0%', mc: '$9.9K', ath: '$10.0K', vol: '$4.3K' },
   ],
 };
 
 const PLACEHOLDER_TOKENS = [
-  {
-    icon: '🪙',
-    name: 'Placeholder Token 1',
-    subtitle: 'This is a placeholder token.',
-    roi: '+0%',
-    holders: 0,
-    dh: '0%',
-    t10: '0%',
-    mc: '$0',
-    ath: '$0',
-    vol: '$0',
-  },
-  {
-    icon: '🪙',
-    name: 'Placeholder Token 2',
-    subtitle: 'This is a placeholder token.',
-    roi: '+0%',
-    holders: 0,
-    dh: '0%',
-    t10: '0%',
-    mc: '$0',
-    ath: '$0',
-    vol: '$0',
-  },
-  // Add more fun, crypto-style placeholder tokens
   { icon: '🦄', name: 'UNICORN', subtitle: 'Magical Token', roi: '+8%', holders: 2, dh: '1%', t10: '0%', mc: '$2.1K', ath: '$2.2K', vol: '$1.1K' },
   { icon: '🐉', name: 'DRAGON', subtitle: 'Fire Breather', roi: '+22%', holders: 3, dh: '2%', t10: '1%', mc: '$3.2K', ath: '$3.5K', vol: '$2.2K' },
-  { icon: '🐸', name: 'FROGGO', subtitle: 'Meme King', roi: '+19%', holders: 4, dh: '3%', t10: '2%', mc: '$5.2K', ath: '$5.5K', vol: '$1.6K' },
-  { icon: '🦊', name: 'FOXIFY', subtitle: 'Clever DeFi', roi: '+11%', holders: 1, dh: '1%', t10: '1%', mc: '$3.8K', ath: '$4.0K', vol: '$0.8K' },
-  { icon: '🐼', name: 'PANDAX', subtitle: 'Chill & Earn', roi: '+7%', holders: 6, dh: '0%', t10: '0%', mc: '$2.9K', ath: '$3.1K', vol: '$0.9K' },
-  { icon: '🦁', name: 'LIONEL', subtitle: 'King of Yield', roi: '+16%', holders: 5, dh: '2%', t10: '1%', mc: '$4.7K', ath: '$5.0K', vol: '$3.7K' },
-  { icon: '🦕', name: 'DINO', subtitle: 'Jurassic Gains', roi: '+12%', holders: 2, dh: '1%', t10: '0%', mc: '$2.3K', ath: '$2.5K', vol: '$0.3K' },
-  { icon: '🦑', name: 'SQUIDLY', subtitle: 'Deep Sea DeFi', roi: '+9%', holders: 3, dh: '0%', t10: '0%', mc: '$3.0K', ath: '$3.2K', vol: '$0.0K' },
-  { icon: '🦀', name: 'CRABBY', subtitle: 'Sideways Profits', roi: '+6%', holders: 4, dh: '0%', t10: '0%', mc: '$1.8K', ath: '$2.0K', vol: '$0.8K' },
-  { icon: '🦦', name: 'OTTERLY', subtitle: 'Playful Pools', roi: '+10%', holders: 7, dh: '1%', t10: '0%', mc: '$2.6K', ath: '$2.8K', vol: '$0.6K' },
-  { icon: '🦚', name: 'PEACOCK', subtitle: 'Show Off Your Gains', roi: '+21%', holders: 3, dh: '2%', t10: '1%', mc: '$5.5K', ath: '$5.8K', vol: '$1.5K' },
-  { icon: '🦓', name: 'ZEBRA', subtitle: 'Stripe Your Portfolio', roi: '+5%', holders: 1, dh: '0%', t10: '0%', mc: '$1.5K', ath: '$1.7K', vol: '$0.5K' },
-  { icon: '🦒', name: 'GIRAFFE', subtitle: 'Tall Returns', roi: '+18%', holders: 2, dh: '2%', t10: '1%', mc: '$4.3K', ath: '$4.6K', vol: '$2.3K' },
-  { icon: '🦔', name: 'HEDGE', subtitle: 'Spiky Profits', roi: '+4%', holders: 2, dh: '0%', t10: '0%', mc: '$1.2K', ath: '$1.3K', vol: '$0.2K' },
-  { icon: '🦘', name: 'KANGA', subtitle: 'Jump Into DeFi', roi: '+15%', holders: 1, dh: '1%', t10: '1%', mc: '$3.9K', ath: '$4.2K', vol: '$1.9K' },
-  { icon: '🦡', name: 'BADGER', subtitle: 'Dig For Gains', roi: '+8%', holders: 2, dh: '1%', t10: '0%', mc: '$2.4K', ath: '$2.6K', vol: '$0.4K' },
-  { icon: '🦍', name: 'APEX', subtitle: 'Go Bananas', roi: '+20%', holders: 4, dh: '3%', t10: '2%', mc: '$6.0K', ath: '$6.3K', vol: '$1.0K' },
-  { icon: '🦅', name: 'EAGLEEYE', subtitle: 'Sharp Trades', roi: '+17%', holders: 2, dh: '2%', t10: '1%', mc: '$5.1K', ath: '$5.4K', vol: '$1.1K' },
-  { icon: '🦏', name: 'RHINO', subtitle: 'Charge Ahead', roi: '+13%', holders: 3, dh: '1%', t10: '0%', mc: '$3.5K', ath: '$3.7K', vol: '$0.5K' },
-  { icon: '🦩', name: 'FLAMINGO', subtitle: 'Stand Out', roi: '+11%', holders: 1, dh: '1%', t10: '0%', mc: '$2.8K', ath: '$3.0K', vol: '$0.8K' },
-  { icon: '🦇', name: 'BATTY', subtitle: 'Night Trader', roi: '+9%', holders: 2, dh: '0%', t10: '0%', mc: '$2.0K', ath: '$2.2K', vol: '$0.0K' },
-  { icon: '🦉', name: 'OWLY', subtitle: 'Wise Investments', roi: '+14%', holders: 3, dh: '1%', t10: '1%', mc: '$3.7K', ath: '$4.0K', vol: '$0.7K' },
+  { icon: '🍔', name: 'BURGER', subtitle: 'Tasty Profits', roi: '+7%', holders: 2, dh: '1%', t10: '0%', mc: '$1.9K', ath: '$2.0K', vol: '$0.3K' },
+  { icon: '🍕', name: 'PIZZA', subtitle: 'Slice of Gains', roi: '+8%', holders: 2, dh: '1%', t10: '0%', mc: '$2.1K', ath: '$2.2K', vol: '$0.4K' },
+  { icon: '🍟', name: 'FRIES', subtitle: 'Crispy Returns', roi: '+9%', holders: 2, dh: '1%', t10: '0%', mc: '$2.3K', ath: '$2.4K', vol: '$0.5K' },
+  { icon: '🍩', name: 'DONUT', subtitle: 'Sweet Profits', roi: '+10%', holders: 2, dh: '1%', t10: '0%', mc: '$2.5K', ath: '$2.6K', vol: '$0.6K' },
+  { icon: '🍦', name: 'ICECREAM', subtitle: 'Cool Gains', roi: '+11%', holders: 2, dh: '1%', t10: '0%', mc: '$2.7K', ath: '$2.8K', vol: '$0.7K' },
+  { icon: '🍉', name: 'WATERMELON', subtitle: 'Juicy Profits', roi: '+12%', holders: 2, dh: '1%', t10: '0%', mc: '$2.9K', ath: '$3.0K', vol: '$0.8K' },
+  { icon: '🍌', name: 'BANANA', subtitle: 'Peel the Gains', roi: '+13%', holders: 2, dh: '1%', t10: '0%', mc: '$3.1K', ath: '$3.2K', vol: '$0.9K' },
+  { icon: '🍎', name: 'APPLE', subtitle: 'Core Profits', roi: '+14%', holders: 2, dh: '1%', t10: '0%', mc: '$3.3K', ath: '$3.4K', vol: '$1.0K' },
+  { icon: '🍒', name: 'CHERRY', subtitle: 'Sweet Returns', roi: '+15%', holders: 2, dh: '1%', t10: '0%', mc: '$3.5K', ath: '$3.6K', vol: '$1.1K' },
+  { icon: '🍇', name: 'GRAPE', subtitle: 'Vine Profits', roi: '+16%', holders: 2, dh: '1%', t10: '0%', mc: '$3.7K', ath: '$3.8K', vol: '$1.2K' },
+  { icon: '🥑', name: 'AVOCADO', subtitle: 'Healthy Gains', roi: '+19%', holders: 2, dh: '1%', t10: '0%', mc: '$4.3K', ath: '$4.4K', vol: '$1.5K' },
+  { icon: '🥦', name: 'BROCCOLI', subtitle: 'Green Profits', roi: '+20%', holders: 2, dh: '1%', t10: '0%', mc: '$4.5K', ath: '$4.6K', vol: '$1.6K' },
+  { icon: '🥕', name: 'CARROT', subtitle: 'Orange Returns', roi: '+21%', holders: 2, dh: '1%', t10: '0%', mc: '$4.7K', ath: '$4.8K', vol: '$1.7K' },
+  { icon: '🌽', name: 'CORN', subtitle: 'Pop Profits', roi: '+22%', holders: 2, dh: '1%', t10: '0%', mc: '$4.9K', ath: '$5.0K', vol: '$1.8K' },
+  { icon: '🥔', name: 'POTATO', subtitle: 'Starchy Gains', roi: '+23%', holders: 2, dh: '1%', t10: '0%', mc: '$5.1K', ath: '$5.2K', vol: '$1.9K' },
+  { icon: '🥐', name: 'CROISSANT', subtitle: 'Flaky Profits', roi: '+24%', holders: 2, dh: '1%', t10: '0%', mc: '$5.3K', ath: '$5.4K', vol: '$2.0K' },
+  { icon: '🥨', name: 'PRETZEL', subtitle: 'Twisty Returns', roi: '+25%', holders: 2, dh: '1%', t10: '0%', mc: '$5.5K', ath: '$5.6K', vol: '$2.1K' },
+  { icon: '🥯', name: 'BAGEL', subtitle: 'Round Profits', roi: '+26%', holders: 2, dh: '1%', t10: '0%', mc: '$5.7K', ath: '$5.8K', vol: '$2.2K' },
+  { icon: '🥞', name: 'PANCAKE', subtitle: 'Stacked Gains', roi: '+27%', holders: 2, dh: '1%', t10: '0%', mc: '$5.9K', ath: '$6.0K', vol: '$2.3K' },
+  { icon: '🧇', name: 'WAFFLE', subtitle: 'Grid Profits', roi: '+28%', holders: 2, dh: '1%', t10: '0%', mc: '$6.1K', ath: '$6.2K', vol: '$2.4K' },
+  { icon: '🍗', name: 'CHICKEN', subtitle: 'Tasty Returns', roi: '+29%', holders: 2, dh: '1%', t10: '0%', mc: '$6.3K', ath: '$6.4K', vol: '$2.5K' },
+  { icon: '🍖', name: 'RIBS', subtitle: 'Meaty Profits', roi: '+30%', holders: 2, dh: '1%', t10: '0%', mc: '$6.5K', ath: '$6.6K', vol: '$2.6K' },
+  { icon: '🍤', name: 'SHRIMP', subtitle: 'Small but Mighty', roi: '+31%', holders: 2, dh: '1%', t10: '0%', mc: '$6.7K', ath: '$6.8K', vol: '$2.7K' },
+  { icon: '🍣', name: 'SUSHI', subtitle: 'Raw Profits', roi: '+32%', holders: 2, dh: '1%', t10: '0%', mc: '$6.9K', ath: '$7.0K', vol: '$2.8K' },
+  { icon: '🍦', name: 'SOFTSERVE', subtitle: 'Cool Profits', roi: '+33%', holders: 2, dh: '1%', t10: '0%', mc: '$7.1K', ath: '$7.2K', vol: '$2.9K' },
+  { icon: '🍰', name: 'CAKE', subtitle: 'Sweet Returns', roi: '+34%', holders: 2, dh: '1%', t10: '0%', mc: '$7.3K', ath: '$7.4K', vol: '$3.0K' },
+  { icon: '🍫', name: 'CHOCOLATE', subtitle: 'Rich Profits', roi: '+35%', holders: 2, dh: '1%', t10: '0%', mc: '$7.5K', ath: '$7.6K', vol: '$3.1K' },
+  { icon: '🍬', name: 'CANDY', subtitle: 'Sweet Profits', roi: '+36%', holders: 2, dh: '1%', t10: '0%', mc: '$7.7K', ath: '$7.8K', vol: '$3.2K' },
+  { icon: '🍭', name: 'LOLLIPOP', subtitle: 'Sticky Returns', roi: '+37%', holders: 2, dh: '1%', t10: '0%', mc: '$7.9K', ath: '$8.0K', vol: '$3.3K' },
+  { icon: '🍯', name: 'HONEY', subtitle: 'Golden Profits', roi: '+38%', holders: 2, dh: '1%', t10: '0%', mc: '$8.1K', ath: '$8.2K', vol: '$3.4K' },
+  { icon: '🍺', name: 'BEER', subtitle: 'Bubbly Returns', roi: '+39%', holders: 2, dh: '1%', t10: '0%', mc: '$8.3K', ath: '$8.4K', vol: '$3.5K' },
+  { icon: '🍷', name: 'WINE', subtitle: 'Vintage Profits', roi: '+40%', holders: 2, dh: '1%', t10: '0%', mc: '$8.5K', ath: '$8.6K', vol: '$3.6K' },
+  { icon: '🍸', name: 'MARTINI', subtitle: 'Shaken Profits', roi: '+41%', holders: 2, dh: '1%', t10: '0%', mc: '$8.7K', ath: '$8.8K', vol: '$3.7K' },
+  { icon: '🍹', name: 'COCKTAIL', subtitle: 'Mixed Returns', roi: '+42%', holders: 2, dh: '1%', t10: '0%', mc: '$8.9K', ath: '$9.0K', vol: '$3.8K' },
+  { icon: '🍾', name: 'CHAMPAGNE', subtitle: 'Celebrate Gains', roi: '+43%', holders: 2, dh: '1%', t10: '0%', mc: '$9.1K', ath: '$9.2K', vol: '$3.9K' },
+  { icon: '🥂', name: 'TOAST', subtitle: 'Cheers to Profits', roi: '+44%', holders: 2, dh: '1%', t10: '0%', mc: '$9.3K', ath: '$9.4K', vol: '$4.0K' },
+  { icon: '🥃', name: 'WHISKEY', subtitle: 'Smooth Returns', roi: '+45%', holders: 2, dh: '1%', t10: '0%', mc: '$9.5K', ath: '$9.6K', vol: '$4.1K' },
+  { icon: '🥤', name: 'SODA', subtitle: 'Fizzy Profits', roi: '+46%', holders: 2, dh: '1%', t10: '0%', mc: '$9.7K', ath: '$9.8K', vol: '$4.2K' },
+  { icon: '🧃', name: 'JUICE', subtitle: 'Fresh Profits', roi: '+47%', holders: 2, dh: '1%', t10: '0%', mc: '$9.9K', ath: '$10.0K', vol: '$4.3K' },
+  { icon: '🧉', name: 'MATE', subtitle: 'Energized Gains', roi: '+48%', holders: 2, dh: '1%', t10: '0%', mc: '$10.1K', ath: '$10.2K', vol: '$4.4K' },
+  { icon: '🧊', name: 'ICE', subtitle: 'Cool Profits', roi: '+49%', holders: 2, dh: '1%', t10: '0%', mc: '$10.3K', ath: '$10.4K', vol: '$4.5K' },
+  { icon: '🎩', name: 'TOPHAT', subtitle: 'Classy Gains', roi: '+12%', holders: 1, dh: '1%', t10: '0%', mc: '$2.2K', ath: '$2.3K', vol: '$0.4K' },
+  { icon: '📱', name: 'MOBILE', subtitle: 'Tech Profits', roi: '+14%', holders: 2, dh: '1%', t10: '0%', mc: '$2.4K', ath: '$2.5K', vol: '$0.5K' },
+  { icon: '💡', name: 'BULB', subtitle: 'Bright Ideas', roi: '+10%', holders: 2, dh: '1%', t10: '0%', mc: '$2.0K', ath: '$2.1K', vol: '$0.3K' },
+  { icon: '🎲', name: 'DICE', subtitle: 'Roll the Profits', roi: '+15%', holders: 2, dh: '1%', t10: '0%', mc: '$2.5K', ath: '$2.6K', vol: '$0.6K' },
+  { icon: '🎮', name: 'GAMER', subtitle: 'Play to Earn', roi: '+18%', holders: 2, dh: '1%', t10: '0%', mc: '$2.8K', ath: '$2.9K', vol: '$0.7K' },
+  { icon: '🚀', name: 'ROCKET', subtitle: 'To the Moon', roi: '+20%', holders: 2, dh: '1%', t10: '0%', mc: '$3.0K', ath: '$3.1K', vol: '$0.8K' },
+  { icon: '🛸', name: 'UFO', subtitle: 'Alien Profits', roi: '+22%', holders: 2, dh: '1%', t10: '0%', mc: '$3.2K', ath: '$3.3K', vol: '$0.9K' },
+  { icon: '🧠', name: 'BRAIN', subtitle: 'Smart Gains', roi: '+24%', holders: 2, dh: '1%', t10: '0%', mc: '$3.4K', ath: '$3.5K', vol: '$1.0K' },
+  { icon: '🪙', name: 'TOKEN', subtitle: 'OG Token', roi: '+5%', holders: 1, dh: '0%', t10: '0%', mc: '$1.1K', ath: '$1.1K', vol: '$0.9K' },
 ];
 
 // Mock Telegram signal data
@@ -203,7 +184,7 @@ const STANDARD_MODES = [
   { key: 'new', label: 'Newly Created' },
   { key: 'graduating', label: 'About to Graduate' },
   { key: 'graduated', label: 'Graduated' },
-  { key: 'featured', label: 'Featured' },
+  { key: 'trending', label: 'Trending' },
 ];
 const STRATEGY_TEMPLATES = [
   { key: 'smart-wallet-volume', label: 'Smart Wallet Volume Trigger' },
@@ -216,15 +197,9 @@ const STRATEGY_TEMPLATES = [
 const TELEGRAM_LABEL = 'Telegram';
 
 export default function FeedGrid({ buyAmount, columns: externalColumns, setColumns: setExternalColumns, showHidden }) {
-  const [columns, setColumns] = useState(() => {
-    if (externalColumns) return externalColumns;
-    const saved = localStorage.getItem('feedColumnOrder');
-    return saved ? JSON.parse(saved) : [...FEED_COLUMNS];
-  });
-  // Sync with external columns if provided
-  React.useEffect(() => {
-    if (externalColumns) setColumns(externalColumns);
-  }, [externalColumns]);
+  // Always use columns from props
+  const columns = externalColumns || FEED_COLUMNS;
+  const setColumns = setExternalColumns;
   const [openFilter, setOpenFilter] = useState(null);
   const filterMenuRef = useRef();
   const [selectedCategory, setSelectedCategory] = useState(FILTER_CATEGORIES[0]);
@@ -240,8 +215,16 @@ export default function FeedGrid({ buyAmount, columns: externalColumns, setColum
   const [filteredTokens, setFilteredTokens] = useState(initialFiltered);
   const [loadingStates, setLoadingStates] = useState({});
 
+  // Animated token feed state
+  const [visibleTokens, setVisibleTokens] = useState({
+    new: [],
+    graduating: [],
+    graduated: [],
+  });
+  // Track current index for each column
+  const tokenIndexes = useRef({ new: 0, graduating: 0, graduated: 0 });
+
   useEffect(() => {
-    localStorage.setItem('feedColumnOrder', JSON.stringify(columns));
     console.log('Columns state updated:', columns);
     if (!Array.isArray(columns) || columns.length < 2) {
       console.warn('Columns array is not as expected:', columns);
@@ -395,13 +378,54 @@ export default function FeedGrid({ buyAmount, columns: externalColumns, setColum
     localStorage.setItem('feedColumnConfigs', JSON.stringify(columnConfigs));
   }, [columnConfigs]);
 
+  // Helper to get a random interval between 3s and 6s
+  function getRandomInterval() {
+    return 3000 + Math.random() * 3000;
+  }
+  // Helper to get a random bonding progress between 20% and 100%
+  function getRandomBondingProgress() {
+    return Math.floor(20 + Math.random() * 80) / 100;
+  }
+
+  useEffect(() => {
+    // Helper to start random interval for a column
+    function startRandomInterval(colKey) {
+      let timeoutId;
+      function addToken() {
+        setVisibleTokens(prev => {
+          const feed = MOCK_FEEDS[colKey] || PLACEHOLDER_TOKENS;
+          const idx = tokenIndexes.current[colKey] % feed.length;
+          const nextToken = {
+            ...feed[idx],
+            bondingProgress: getRandomBondingProgress(),
+          };
+          tokenIndexes.current[colKey] = idx + 1;
+          // Only add if not already present at the end
+          if (prev[colKey].length > 0 && prev[colKey][prev[colKey].length - 1]?.name === nextToken.name) {
+            return prev;
+          }
+          return {
+            ...prev,
+            [colKey]: [...prev[colKey], nextToken].slice(-8), // keep last 8 tokens
+          };
+        });
+        timeoutId = setTimeout(addToken, getRandomInterval());
+      }
+      timeoutId = setTimeout(addToken, getRandomInterval());
+      return () => clearTimeout(timeoutId);
+    }
+    const colKeys = ['new', 'graduating', 'graduated'];
+    const stops = colKeys.map(colKey => startRandomInterval(colKey));
+    return () => stops.forEach(stop => stop());
+  }, []);
+
   return (
     <div className="w-full min-h-[80vh] flex justify-center items-start px-2 md:px-6 lg:px-10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black overflow-x-auto">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="feed-columns" direction="horizontal">
           {(provided) => (
             <div
-              className="w-full max-w-[1600px] flex gap-6 justify-center mb-6 px-1 mx-auto"
+              className="w-full max-w-[1600px] flex gap-10 justify-center mb-6 px-1 mx-auto"
               style={{ minWidth: 900 }}
               ref={provided.innerRef}
               {...provided.droppableProps}
@@ -418,7 +442,13 @@ export default function FeedGrid({ buyAmount, columns: externalColumns, setColum
                       <SectionCard
                         key={col.key + '-' + (columnConfigs[col.key]?.filters?.length || 0)}
                         category={col.label}
-                        tokens={filteredTokens[col.key] || PLACEHOLDER_TOKENS}
+                        tokens={['new','graduating','graduated'].includes(col.key) ?
+                          (col.key === 'graduated'
+                            ? (visibleTokens[col.key] || []).map(t => ({ ...t, bondingProgress: 1 }))
+                            : col.key === 'new'
+                              ? (visibleTokens[col.key] || []).map(t => ({ ...t, bondingProgress: Math.random() * 0.1 + 0.05 }))
+                              : visibleTokens[col.key])
+                          : (filteredTokens[col.key] || PLACEHOLDER_TOKENS)}
                         filters={columnConfigs[col.key]?.filters || []}
                         onCategoryChange={newLabel => {
                           setColumns(cols => cols.map(c => c.key === col.key ? { ...c, label: newLabel } : c));
@@ -444,6 +474,7 @@ export default function FeedGrid({ buyAmount, columns: externalColumns, setColum
                           if (setExternalColumns) setExternalColumns(update);
                         }}
                         onOpenSettings={() => setSettingsModal({ open: true, colKey: col.key })}
+                        animateTokens={true}
                       />
                     </div>
                   )}
