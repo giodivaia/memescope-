@@ -27,25 +27,22 @@ const SOL_LOGO = (
 
 export default function QuickBuyBar({ amount, onAmountChange }) {
   return (
-    <div className="flex items-center gap-6 w-full max-w-2xl">
-      {/* Quick Buy Bar */}
-      <div className="flex items-center gap-3 bg-gradient-to-br from-zinc-900/80 via-zinc-800/70 to-zinc-900/90 rounded-xl border border-blue-500/20 px-3 py-1.5 shadow-xl backdrop-blur-xl relative" style={{ minWidth: 160, minHeight: 36 }}>
-        <span className="font-semibold text-xs bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent tracking-wide select-none">quick buy</span>
-        <div className="flex items-center gap-1 bg-zinc-900/80 rounded-full px-2 py-0.5 border border-blue-500/20 shadow-inner">
-          <span className="w-5 h-5 flex items-center justify-center">{SOL_LOGO}</span>
-          <input
-            type="text"
-            inputMode="decimal"
-            pattern="[0-9.]*"
-            value={amount}
-            onChange={e => onAmountChange(e.target.value)}
-            className="w-10 bg-transparent text-white text-base font-bold outline-none border-none text-right px-1 rounded-full focus:ring-2 focus:ring-blue-400/70 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all duration-200 appearance-none"
-            style={{ MozAppearance: 'textfield', boxShadow: '0 0 0 2px #6366f122' }}
-            autoComplete="off"
-          />
-        </div>
-        <div className="absolute inset-0 rounded-xl pointer-events-none border-2 border-blue-400/10 blur-[2px]" />
+    <div className="flex gap-3 items-center bg-zinc-900/80 rounded-md px-4 py-1 min-h-[40px]">
+      <span className="font-semibold text-[13px] bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent tracking-wide select-none">quick buy</span>
+      <div className="flex items-center gap-1 bg-zinc-900 rounded-full px-1.5 py-0.5 border border-blue-500/20">
+        <span className="w-5 h-5 flex items-center justify-center">{SOL_LOGO}</span>
+        <input
+          type="text"
+          inputMode="decimal"
+          pattern="[0-9.]*"
+          value={amount}
+          onChange={e => onAmountChange(e.target.value)}
+          className="w-10 bg-transparent text-white text-base font-bold outline-none border-none text-right px-1 rounded-full focus:ring-2 focus:ring-blue-400/70 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all duration-200 appearance-none"
+          style={{ MozAppearance: 'textfield', boxShadow: 'none' }}
+          autoComplete="off"
+        />
       </div>
+      <button className="px-3 py-0.5 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold shadow hover:scale-105 hover:shadow-lg transition-all duration-200 ml-1 text-sm" style={{minWidth: 0}}>Buy</button>
     </div>
   );
 }

@@ -272,10 +272,12 @@ export default function FeedCard({
 
   return (
     <div
-      className={`relative flex flex-col items-stretch bg-gradient-to-br from-zinc-900/70 via-zinc-800/60 to-zinc-900/80 rounded-[24px] border border-zinc-800 shadow-2xl p-4 transition-all duration-300 cursor-pointer ${telegramSignal ? 'ring-2 ring-green-400/70 shadow-green-400/20' : ''}`}
-      style={{ width: 220, minHeight: 250, maxHeight: 260, gap: 8 }}
+      className={`relative flex flex-col items-stretch bg-gradient-to-br from-black via-zinc-900 to-slate-900 rounded-xl border border-slate-200/30 shadow-[0_4px_32px_0_rgba(80,200,255,0.18)] hover:shadow-[0_0_32px_8px_rgba(80,200,255,0.25)] transition-all duration-300 cursor-pointer overflow-hidden group transform-gpu hover:scale-105 ${telegramSignal ? 'ring-2 ring-green-400/70 shadow-green-400/20' : ''}`}
+      style={{ width: 240, minHeight: 260, maxHeight: 280, gap: 6, padding: '12px' }}
       onClick={handleClick}
     >
+      {/* Glossy overlay */}
+      <div className="absolute top-0 left-0 w-full h-1/3 pointer-events-none" style={{background: 'linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0.08) 80%,transparent)'}} />
       {/* Telegram signal badge */}
       {telegramSignal && (
         <div className="absolute top-3 right-3 flex items-center gap-1 bg-green-700/80 text-white px-2 py-1 rounded-full text-xs font-semibold shadow-lg z-10">
@@ -283,14 +285,16 @@ export default function FeedCard({
           <span>{formatTimeAgo(telegramSignal.timestamp)}</span>
         </div>
       )}
-      {/* Animated border glow on hover */}
-      <div className="absolute inset-0 rounded-[24px] pointer-events-none transition-all duration-500 group-hover:shadow-[0_0_32px_4px_rgba(99,102,241,0.18)] group-hover:border-blue-500/40" />
+      {/* Neon border glow on hover */}
+      <div className="absolute inset-0 rounded-xl pointer-events-none transition-all duration-500 group-hover:shadow-[0_0_32px_8px_rgba(80,200,255,0.25)] group-hover:border-blue-400/80" />
       {/* Top: Token logo, name, % */}
       <div className="flex items-center gap-3 mb-1 min-w-0">
         <div className="w-11 h-11 rounded-full bg-gradient-to-br from-zinc-800 via-zinc-900 to-zinc-800 border border-zinc-700 flex items-center justify-center overflow-hidden shadow-lg relative group/logo transition-all duration-300" style={{ filter: 'none', backdropFilter: 'none', background: 'none' }}>
           {/* No blur or overlay on emoji */}
           <div className="flex items-center justify-center w-full h-full group-hover/logo:animate-pulse" style={{ filter: 'none', opacity: 1 }}>
-            {showEmoji ? (
+            {icon && typeof icon === 'string' && icon.length <= 3 && /^\p{Emoji}$/u.test(icon) ? (
+              <span style={{ fontSize: 28, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} role="img" aria-label="token">{icon}</span>
+            ) : showEmoji ? (
               <TokenPlaceholderEmoji name={name} />
             ) : (
               <img
@@ -316,7 +320,7 @@ export default function FeedCard({
               {roi}
             </span>
           </div>
-          <div className="text-zinc-400 text-xs truncate font-normal max-w-[120px] block" title={subtitle} style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{subtitle}</div>
+          <div className="text-slate-400 text-[10px] truncate font-normal max-w-[100px] block" title={subtitle} style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '10px', marginTop: '-2px' }}>{subtitle}</div>
         </div>
         <button
           className="ml-1 p-1 rounded-full bg-zinc-800/80 hover:bg-blue-500/10 transition flex-shrink-0 shadow group-hover:shadow-blue-400/20"
@@ -326,16 +330,16 @@ export default function FeedCard({
         </button>
       </div>
       {/* Stats grid */}
-      <div className="grid grid-cols-3 gap-x-2 gap-y-1 text-[12px] text-zinc-400 font-normal mb-1 mt-1">
-        <div className="truncate group/stat" title={`MC: ${mc}`}><span className="text-white font-normal group-hover/stat:text-blue-400 transition-all">MC: {mc}</span></div>
-        <div className="truncate group/stat" title={`ATH: ${ath}`}><span className="text-white font-normal group-hover/stat:text-blue-400 transition-all">ATH: {ath}</span></div>
-        <div className="truncate group/stat" title={`Vol: ${vol}`}><span className="text-white font-normal group-hover/stat:text-blue-400 transition-all">Vol: {vol}</span></div>
-        <div className="truncate group/stat" title={`Holders: ${holders}`}><span className="text-white font-normal group-hover/stat:text-blue-400 transition-all">Holders: {holders}</span></div>
-        <div className="truncate group/stat" title={`DH: ${dh}`}><span className="text-white font-normal group-hover/stat:text-blue-400 transition-all">DH: {dh}</span></div>
-        <div className="truncate group/stat" title={`T10: ${t10}`}>T10: <span className="text-white font-normal group-hover/stat:text-blue-400 transition-all">{t10}</span></div>
+      <div className="grid grid-cols-3 gap-x-1 gap-y-0.5 text-[11px] text-slate-300 font-medium mb-1 mt-1 divide-x divide-slate-500/30">
+        <div className="truncate px-0.5"><span className="text-slate-100 font-semibold">MC: {mc}</span></div>
+        <div className="truncate px-0.5"><span className="text-slate-100 font-semibold">ATH: {ath}</span></div>
+        <div className="truncate px-0.5"><span className="text-slate-100 font-semibold">Vol: {vol}</span></div>
+        <div className="truncate px-0.5"><span className="text-slate-300">Holders: {holders}</span></div>
+        <div className="truncate px-0.5"><span className="text-slate-300">DH: {dh}</span></div>
+        <div className="truncate px-0.5">T10: <span className="text-slate-300">{t10}</span></div>
       </div>
       {/* Mini chart */}
-      <div className="w-full flex justify-center items-center my-1" style={{ minHeight: 44 }}>
+      <div className="w-full flex justify-center items-center my-1 rounded-lg bg-gradient-to-br from-black via-zinc-900 to-slate-900 shadow-[0_0_12px_0_#38bdf8cc] border border-blue-400/20">
         <MiniCandleChart candles={candles} />
       </div>
       {/* Animated bonding progress bar */}
@@ -343,19 +347,21 @@ export default function FeedCard({
         <AnimatedBondingBar base={bondingProgress} />
       </div>
       {/* Buttons row */}
-      <div className="flex gap-2 mt-2">
+      <div className="flex gap-1 mt-1">
         <button
-          className="flex-1 flex items-center justify-center gap-1 py-2 rounded-full bg-zinc-900/80 text-zinc-200 hover:bg-blue-500/10 hover:text-blue-400 transition text-[14px] font-semibold shadow border border-zinc-700 group/button"
+          className="flex-1 flex items-center justify-center gap-1 py-1.5 px-2 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white text-[13px] font-bold uppercase shadow-lg border border-blue-400/60 group/button hover:shadow-blue-400/40 focus:ring-2 focus:ring-blue-400/60 hover:scale-105 focus:scale-105 min-w-0 drop-shadow-[0_0_8px_#6366f1cc]"
+          onClick={handleBuy}
+          disabled={buying}
+          style={{ minWidth: 0, letterSpacing: '0.04em' }}
+        >
+          {buying ? <span className="font-bold">Buy...</span> : <span className="font-bold">Buy {buyAmount}</span>}
+        </button>
+        <button
+          className="flex-1 flex items-center justify-center gap-1 py-1 px-1.5 rounded-full bg-white/10 text-slate-200 border border-slate-400/40 hover:bg-blue-500/10 hover:text-blue-400 hover:border-blue-400/60 transition font-semibold shadow group/button hover:shadow-blue-400/20 hover:scale-105 focus:scale-105 text-[11px] min-w-0"
+          style={{ minWidth: 0 }}
         >
           <DetailsIcon />
           Details
-        </button>
-        <button
-          className="flex-1 flex items-center justify-center gap-1 py-2 rounded-full bg-gradient-to-r from-green-400/90 to-blue-500/90 text-white hover:from-green-300 hover:to-blue-400 transition text-[14px] font-semibold shadow-lg border border-green-400/20 group/button hover:shadow-green-400/20"
-          onClick={handleBuy}
-          disabled={buying}
-        >
-          {buying ? `Processing...` : `Buy ${buyAmount}`}
         </button>
       </div>
       {buySuccess && (

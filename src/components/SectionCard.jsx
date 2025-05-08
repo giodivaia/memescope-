@@ -122,7 +122,8 @@ function SectionCard({
   isHidden,
   onToggleHidden,
   isStagnant,
-  isStrategyBuilder
+  isStrategyBuilder,
+  animateTokens
 }) {
   const navigate = useNavigate();
   // Overlay/modal state: 'none' | 'settings' | 'filters' | 'chatSelector' | 'saveStrategy'
@@ -359,9 +360,9 @@ function SectionCard({
   };
 
   return (
-    <section className={`flex flex-col bg-zinc-900/80 rounded-2xl border border-zinc-800 shadow-xl backdrop-blur-xl min-h-[80vh] max-h-[82vh] transition-all duration-300 w-[260px] transition-shadow ${activeOverlay !== 'none' ? 'ring-2 ring-blue-500/30 scale-[0.98] opacity-90 pulse-shadow' : ''} ${isHidden ? 'opacity-60 grayscale' : ''}`}>
+    <section className={`flex flex-col bg-gradient-to-br from-black via-zinc-900 to-slate-800 rounded-lg border border-slate-200/30 shadow-[0_4px_32px_0_rgba(80,200,255,0.18)] backdrop-blur-xl min-h-[84vh] max-h-[86vh] transition-all duration-300 w-[270px] transition-shadow ${activeOverlay !== 'none' ? 'ring-2 ring-blue-500/30 scale-[0.98] opacity-90 pulse-shadow' : ''} ${isHidden ? 'opacity-60 grayscale' : ''}`}>
       {/* Header */}
-      <header className="sticky top-0 z-10 backdrop-blur border-b rounded-t-2xl flex items-center justify-between px-3 py-2 select-none bg-zinc-900/90 border-zinc-800">
+      <header className="sticky top-0 z-10 backdrop-blur border-b rounded-t-lg flex items-center justify-between px-3 py-2 select-none bg-black/80 border-slate-200/30">
         <span className="text-base font-bold text-zinc-400 capitalize truncate max-w-[120px]">
           {category}
         </span>
@@ -385,10 +386,16 @@ function SectionCard({
         </div>
       </header>
       {/* Standard column content (filters, tokens, etc) */}
-      <div className="flex-1 overflow-y-auto px-2 py-2 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto px-2 py-2 custom-scrollbar flex flex-col space-y-6">
         {tokens && tokens.length > 0 ? (
           tokens.map((token, idx) => (
-            <FeedCard key={token.name + idx} {...token} buyAmount={buyAmount} />
+            <div
+              key={token.name}
+              className={`transition-all duration-300 ${animateTokens ? 'animate-fade-in' : ''}`}
+              style={{ animationDelay: `${idx * 0.1}s` }}
+            >
+              <FeedCard {...token} buyAmount={buyAmount} />
+            </div>
           ))
         ) : (
           <div className="text-zinc-500 text-center mt-8">No tokens to show.</div>

@@ -8,40 +8,17 @@ const DEFAULT_COLUMNS = [
   { key: 'new', label: 'newly created' },
   { key: 'graduating', label: 'about to graduate' },
   { key: 'graduated', label: 'graduated' },
-  { key: 'featured', label: 'featured' },
+  { key: 'trending', label: 'trending' },
 ];
 
 export default function FeedPage() {
   const [buyAmount, setBuyAmount] = useState('0.01');
   const [showEditColumns, setShowEditColumns] = useState(false);
-  const [columns, setColumns] = useState(() => {
-    const saved = localStorage.getItem('feedColumnOrder');
-    return saved ? JSON.parse(saved) : DEFAULT_COLUMNS;
-  });
+  const [columns, setColumns] = useState(DEFAULT_COLUMNS);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showLegendModal, setShowLegendModal] = useState(false);
   const [showHidden, setShowHidden] = useState(false);
   const navigate = useNavigate();
-
-  // Save columns to localStorage on change
-  React.useEffect(() => {
-    localStorage.setItem('feedColumnOrder', JSON.stringify(columns));
-  }, [columns]);
-
-  React.useEffect(() => {
-    const pending = localStorage.getItem('pendingFeedStrategy');
-    if (pending) {
-      const strategy = JSON.parse(pending);
-      setColumns(cols => {
-        if (cols.some(col => col.label === strategy.title)) return cols;
-        return [
-          { key: strategy.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '_' + Date.now(), label: strategy.title, strategy },
-          ...cols
-        ];
-      });
-      localStorage.removeItem('pendingFeedStrategy');
-    }
-  }, []);
 
   // Handlers for modal
   const handleMove = (from, to) => {
@@ -60,10 +37,13 @@ export default function FeedPage() {
     if (!name) return;
     setColumns(cols => [...cols, { key: name.toLowerCase().replace(/\s+/g, '-') + '_' + Date.now(), label: name }]);
   };
+  const handleResetDefault = () => {
+    setColumns(DEFAULT_COLUMNS);
+  };
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] px-6 py-10 text-white">
-      <div className="flex items-center justify-between mb-8 gap-8 w-full max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#0f0f0f] px-6 pt-4 pb-10 text-white">
+      <div className="flex items-start justify-start mb-6 gap-4 w-full max-w-7xl mx-auto">
         <QuickBuyBar amount={buyAmount} onAmountChange={setBuyAmount} />
         <FeedToolbar
           onSettings={() => setShowSettingsModal(true)}
@@ -72,6 +52,7 @@ export default function FeedPage() {
           onLegend={() => setShowLegendModal(true)}
           onTerminal={() => navigate('/trade/spot')}
           hiddenActive={showHidden}
+          noBox
         />
       </div>
       <FeedGrid buyAmount={buyAmount} columns={columns} setColumns={setColumns} showHidden={showHidden} />
@@ -118,7 +99,7 @@ export default function FeedPage() {
               <h2 className="text-xl font-bold text-blue-300">Legend</h2>
               <button className="text-zinc-400 hover:text-red-400 text-lg font-bold" onClick={() => setShowLegendModal(false)}>✕</button>
             </div>
-            <ul className="space-y-2">
+            <ul className="space-y-2 mb-4">
               <li><span className="font-bold">Settings:</span> Global dashboard preferences</li>
               <li><span className="font-bold">Hidden:</span> Toggle hidden/archived columns or tokens</li>
               <li><span className="font-bold">Edit Columns:</span> Add, remove, or reorder feed columns</li>
@@ -126,6 +107,7 @@ export default function FeedPage() {
               <li><span className="font-bold text-blue-400">Blue:</span> Active/selected</li>
               <li><span className="font-bold text-zinc-400">Gray:</span> Inactive/available</li>
             </ul>
+            <button className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 font-bold text-white shadow hover:scale-105 transition-all" onClick={handleResetDefault}>Default</button>
           </div>
         </div>
       )}
