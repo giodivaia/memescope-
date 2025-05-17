@@ -27,9 +27,9 @@ const SOL_LOGO = (
 
 export default function QuickBuyBar({ amount, onAmountChange }) {
   return (
-    <div className="flex gap-3 items-center bg-zinc-900/80 rounded-md px-4 py-1 min-h-[40px]">
-      <span className="font-semibold text-[13px] bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent tracking-wide select-none">quick buy</span>
-      <div className="flex items-center gap-1 bg-zinc-900 rounded-full px-1.5 py-0.5 border border-blue-500/20">
+    <div className="flex gap-3 items-center bg-[#0C0C0C] border-none rounded-none px-0 py-0 min-h-[44px] relative" style={{boxShadow: 'none'}}>
+      <span className="font-mono font-bold text-[13px] text-[#A0A0A0] tracking-widest uppercase select-none z-20 ml-6">quick buy</span>
+      <div className="flex items-center gap-1 bg-transparent border-b border-[#23262F] rounded-none px-2 py-0 z-20 ml-2">
         <span className="w-5 h-5 flex items-center justify-center">{SOL_LOGO}</span>
         <input
           type="text"
@@ -37,12 +37,10 @@ export default function QuickBuyBar({ amount, onAmountChange }) {
           pattern="[0-9.]*"
           value={amount}
           onChange={e => onAmountChange(e.target.value)}
-          className="w-10 bg-transparent text-white text-base font-bold outline-none border-none text-right px-1 rounded-full focus:ring-2 focus:ring-blue-400/70 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all duration-200 appearance-none"
-          style={{ MozAppearance: 'textfield', boxShadow: 'none' }}
-          autoComplete="off"
+          className="bg-transparent border-none outline-none text-[#A0A0A0] font-mono text-[15px] w-16 px-1 py-0.5"
         />
       </div>
-      <button className="px-3 py-0.5 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold shadow hover:scale-105 hover:shadow-lg transition-all duration-200 ml-1 text-sm" style={{minWidth: 0}}>Buy</button>
+      <span className="font-mono font-bold text-[13px] text-[#A0A0A0] tracking-widest uppercase select-none z-20 ml-2">buy</span>
     </div>
   );
 }

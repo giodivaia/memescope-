@@ -105,6 +105,16 @@ const strategyPresets = [
   },
 ];
 
+// Add at the top, after imports
+const PLACEHOLDER_ORGS = [
+  { name: 'ARES Labs', icon: '🛰️', tagline: 'AI Research Node' },
+  { name: 'Helios Group', icon: '🌌', tagline: 'Solar Analytics' },
+  { name: 'Obsidian Core', icon: '💠', tagline: 'Darknet Index' },
+  { name: 'Nova Syndicate', icon: '🪐', tagline: 'Market Intelligence' },
+  { name: 'Ion Guild', icon: '⚡', tagline: 'Liquidity Ops' },
+  { name: 'Vega Collective', icon: '🔭', tagline: 'Signal Processing' },
+];
+
 function SectionCard({
   category,
   tokens,
@@ -360,33 +370,34 @@ function SectionCard({
   };
 
   return (
-    <section className={`flex flex-col bg-gradient-to-br from-black via-zinc-900 to-slate-800 rounded-lg border border-slate-200/30 shadow-[0_4px_32px_0_rgba(80,200,255,0.18)] backdrop-blur-xl min-h-[84vh] max-h-[86vh] transition-all duration-300 w-[270px] transition-shadow ${activeOverlay !== 'none' ? 'ring-2 ring-blue-500/30 scale-[0.98] opacity-90 pulse-shadow' : ''} ${isHidden ? 'opacity-60 grayscale' : ''}`}>
+    <section className={`flex flex-col bg-[#0C0C0C] rounded-2xl border border-[#23262F] shadow-[0_2px_32px_0_rgba(0,0,0,0.18)] transition-all duration-300 w-[300px] min-h-[84vh] max-h-[86vh] overflow-hidden group ${activeOverlay !== 'none' ? 'ring-2 ring-blue-400/30 scale-[0.98] opacity-90 pulse-shadow' : ''} ${isHidden ? 'opacity-60 grayscale' : ''}`}>
+      {/* Glossy overlay */}
       {/* Header */}
-      <header className="sticky top-0 z-10 backdrop-blur border-b rounded-t-lg flex items-center justify-between px-3 py-2 select-none bg-black/80 border-slate-200/30">
-        <span className="text-base font-bold text-zinc-400 capitalize truncate max-w-[120px]">
+      <header className="sticky top-0 z-20 backdrop-blur border-b rounded-t-2xl flex items-center justify-between px-4 py-3 select-none bg-[#101113]/95 border-[#23262F] shadow-none">
+        <span className="text-lg font-bold text-[#F5F5F5] font-mono uppercase tracking-widest truncate max-w-[140px] drop-shadow-none">
           {category}
         </span>
         <div className="flex items-center gap-2">
-          <button className="text-zinc-400 hover:text-blue-400 transition" onClick={() => onOpenSettings && onOpenSettings()}>
-            <Settings size={18} />
+          <button className="text-[#A0A0A0] hover:text-white transition" onClick={() => onOpenSettings && onOpenSettings()}>
+            <Settings size={20} />
           </button>
-          <button className="text-blue-400 hover:text-green-400 transition relative" onClick={() => setActiveOverlay('filters')}>
-            <Sliders size={16} />
+          <button className="text-[#A0A0A0] hover:text-white transition relative" onClick={() => setActiveOverlay('filters')}>
+            <Sliders size={18} />
             {filters && filters.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] rounded-full px-1.5 py-0.5 font-bold">{filters.length}</span>
+              <span className="absolute -top-1 -right-1 bg-[#23262F] text-[#F5F5F5] text-[11px] rounded-full px-1.5 py-0.5 font-bold font-mono border border-[#23262F] shadow-none">{filters.length}</span>
             )}
           </button>
           <button
-            className={`ml-1 ${isHidden ? 'text-blue-400' : 'text-zinc-400'} hover:text-blue-400 transition`}
+            className={`ml-1 ${isHidden ? 'text-white' : 'text-[#BDBDBD]'} hover:text-white transition`}
             title={isHidden ? 'Unhide column' : 'Hide column'}
             onClick={onToggleHidden}
           >
-            {isHidden ? <EyeOff size={16} /> : <Eye size={16} />}
+            {isHidden ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
       </header>
       {/* Standard column content (filters, tokens, etc) */}
-      <div className="flex-1 overflow-y-auto px-2 py-2 custom-scrollbar flex flex-col space-y-6">
+      <div className="flex-1 overflow-y-auto px-3 py-3 custom-scrollbar flex flex-col space-y-7">
         {tokens && tokens.length > 0 ? (
           tokens.map((token, idx) => (
             <div
@@ -398,7 +409,48 @@ function SectionCard({
             </div>
           ))
         ) : (
-          <div className="text-zinc-500 text-center mt-8">No tokens to show.</div>
+          // Show 1-2 random orgs per empty column, different for each column, using FeedCard for visual consistency
+          (() => {
+            const colOrgs = [];
+            if (category && category.toLowerCase().includes('new')) colOrgs.push(PLACEHOLDER_ORGS[0]);
+            if (category && category.toLowerCase().includes('about')) colOrgs.push(PLACEHOLDER_ORGS[1], PLACEHOLDER_ORGS[2]);
+            if (category && category.toLowerCase().includes('graduated')) colOrgs.push(PLACEHOLDER_ORGS[3]);
+            if (colOrgs.length === 0) colOrgs.push(PLACEHOLDER_ORGS[4]);
+            // Fun sci-fi mock stats for orgs
+            const ORG_STATS = [
+              { mc: '$1.2M', ath: '$2.1M', vol: '$320K', holders: 42, dh: '2%', t10: '18%' },
+              { mc: '$3.8M', ath: '$4.2M', vol: '$1.1M', holders: 88, dh: '1%', t10: '22%' },
+              { mc: '$900K', ath: '$1.5M', vol: '$210K', holders: 17, dh: '3%', t10: '12%' },
+              { mc: '$2.7M', ath: '$3.3M', vol: '$800K', holders: 61, dh: '2%', t10: '15%' },
+              { mc: '$5.1M', ath: '$6.0M', vol: '$2.2M', holders: 120, dh: '0.5%', t10: '30%' },
+              { mc: '$1.7M', ath: '$2.0M', vol: '$500K', holders: 33, dh: '2.5%', t10: '10%' },
+            ];
+            return colOrgs.map((org, i) => {
+              const stats = ORG_STATS[i % ORG_STATS.length];
+              return (
+                <div key={org.name} className="transition-all duration-300">
+                  <FeedCard
+                    icon={org.icon}
+                    name={org.name}
+                    subtitle={org.tagline}
+                    roi={'+0.0%'}
+                    holders={stats.holders}
+                    dh={stats.dh}
+                    t10={stats.t10}
+                    mc={stats.mc}
+                    ath={stats.ath}
+                    vol={stats.vol}
+                    chart={undefined} // Let FeedCard generate a chart
+                    bondingProgress={0.2 + 0.6 * Math.random()}
+                    buyAmount={''}
+                    onClick={undefined}
+                    telegramSignal={undefined}
+                    isPlaceholderOrg={true}
+                  />
+                </div>
+              );
+            });
+          })()
         )}
       </div>
     </section>

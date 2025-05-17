@@ -272,24 +272,23 @@ export default function FeedCard({
 
   return (
     <div
-      className={`relative flex flex-col items-stretch bg-gradient-to-br from-black via-zinc-900 to-slate-900 rounded-xl border border-slate-200/30 shadow-[0_4px_32px_0_rgba(80,200,255,0.18)] hover:shadow-[0_0_32px_8px_rgba(80,200,255,0.25)] transition-all duration-300 cursor-pointer overflow-hidden group transform-gpu hover:scale-105 ${telegramSignal ? 'ring-2 ring-green-400/70 shadow-green-400/20' : ''}`}
-      style={{ width: 240, minHeight: 260, maxHeight: 280, gap: 6, padding: '12px' }}
+      className={`relative flex flex-col items-stretch bg-[#0C0C0C] rounded-xl border border-[#23262F] shadow-[0_2px_24px_0_rgba(0,0,0,0.18)] transition-all duration-300 cursor-pointer overflow-hidden group transform-gpu hover:shadow-[0_0_32px_8px_rgba(0,240,255,0.10)] ${telegramSignal ? 'ring-2 ring-blue-400/30 shadow-blue-400/20' : ''}`}
+      style={{ width: 240, minHeight: 260, maxHeight: 280, gap: 6, padding: '14px', fontFamily: 'JetBrains Mono, Space Grotesk, monospace', position: 'relative' }}
       onClick={handleClick}
     >
       {/* Glossy overlay */}
-      <div className="absolute top-0 left-0 w-full h-1/3 pointer-events-none" style={{background: 'linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0.08) 80%,transparent)'}} />
       {/* Telegram signal badge */}
       {telegramSignal && (
-        <div className="absolute top-3 right-3 flex items-center gap-1 bg-green-700/80 text-white px-2 py-1 rounded-full text-xs font-semibold shadow-lg z-10">
-          <span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg> </span>
+        <div className="absolute top-3 right-3 flex items-center gap-1 bg-[#23262F] border border-[#23262F] text-[#F5F5F5] px-2 py-1 rounded-full text-xs font-mono font-semibold shadow z-10">
+          <span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg> </span>
           <span>{formatTimeAgo(telegramSignal.timestamp)}</span>
         </div>
       )}
-      {/* Neon border glow on hover */}
-      <div className="absolute inset-0 rounded-xl pointer-events-none transition-all duration-500 group-hover:shadow-[0_0_32px_8px_rgba(80,200,255,0.25)] group-hover:border-blue-400/80" />
+      {/* Border glow on hover */}
+      <div className="absolute inset-0 rounded-xl pointer-events-none transition-all duration-500 group-hover:shadow-[0_0_32px_8px_rgba(0,240,255,0.10)] group-hover:border-blue-400/40" />
       {/* Top: Token logo, name, % */}
       <div className="flex items-center gap-3 mb-1 min-w-0">
-        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-zinc-800 via-zinc-900 to-zinc-800 border border-zinc-700 flex items-center justify-center overflow-hidden shadow-lg relative group/logo transition-all duration-300" style={{ filter: 'none', backdropFilter: 'none', background: 'none' }}>
+        <div className="w-11 h-11 rounded-full bg-[#181A20] border border-[#23262F] flex items-center justify-center overflow-hidden shadow relative group/logo transition-all duration-300" style={{ filter: 'none', backdropFilter: 'none', background: 'none' }}>
           {/* No blur or overlay on emoji */}
           <div className="flex items-center justify-center w-full h-full group-hover/logo:animate-pulse" style={{ filter: 'none', opacity: 1 }}>
             {icon && typeof icon === 'string' && icon.length <= 3 && /^\p{Emoji}$/u.test(icon) ? (
@@ -310,36 +309,36 @@ export default function FeedCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 min-w-0">
             <span
-              className="font-semibold text-[16px] truncate max-w-[90px] block bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(59,130,246,0.10)] group-hover:text-white transition-all duration-200"
+              className="font-bold text-[16px] truncate max-w-[90px] block text-[#F5F5F5] font-mono tracking-wide uppercase"
               title={name}
               style={{ lineHeight: '1.2', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
             >
               {name}
             </span>
-            <span className="ml-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-green-400 to-blue-400 text-white text-xs font-bold shadow-lg animate-pulse group-hover:shadow-xl transition-all duration-200">
+            <span className="ml-1 px-2 py-0.5 rounded-full border border-[#23262F] bg-[#101113] text-[#F5F5F5] text-xs font-mono font-bold shadow group-hover:shadow-blue-400/10 transition-all duration-200 tracking-widest" style={{ letterSpacing: '0.08em' }}>
               {roi}
             </span>
           </div>
-          <div className="text-slate-400 text-[10px] truncate font-normal max-w-[100px] block" title={subtitle} style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '10px', marginTop: '-2px' }}>{subtitle}</div>
+          <div className="text-[#A0A0A0] text-[10px] truncate font-mono max-w-[100px] block" title={subtitle} style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '10px', marginTop: '-2px' }}>{subtitle}</div>
         </div>
         <button
-          className="ml-1 p-1 rounded-full bg-zinc-800/80 hover:bg-blue-500/10 transition flex-shrink-0 shadow group-hover:shadow-blue-400/20"
+          className="ml-1 p-1 rounded-full bg-[#181A20] border border-[#23262F] hover:bg-[#23262F] transition flex-shrink-0 shadow group-hover:shadow-blue-400/10"
           title="Watch"
         >
           <EyeIcon />
         </button>
       </div>
       {/* Stats grid */}
-      <div className="grid grid-cols-3 gap-x-1 gap-y-0.5 text-[11px] text-slate-300 font-medium mb-1 mt-1 divide-x divide-slate-500/30">
-        <div className="truncate px-0.5"><span className="text-slate-100 font-semibold">MC: {mc}</span></div>
-        <div className="truncate px-0.5"><span className="text-slate-100 font-semibold">ATH: {ath}</span></div>
-        <div className="truncate px-0.5"><span className="text-slate-100 font-semibold">Vol: {vol}</span></div>
-        <div className="truncate px-0.5"><span className="text-slate-300">Holders: {holders}</span></div>
-        <div className="truncate px-0.5"><span className="text-slate-300">DH: {dh}</span></div>
-        <div className="truncate px-0.5">T10: <span className="text-slate-300">{t10}</span></div>
+      <div className="grid grid-cols-3 gap-x-1 gap-y-0.5 text-[11px] text-[#BDBDBD] font-mono font-medium mb-1 mt-1 divide-x divide-[#23262F]">
+        <div className="truncate px-0.5"><span className="text-[#F5F5F5] font-semibold">MC: {mc}</span></div>
+        <div className="truncate px-0.5"><span className="text-[#F5F5F5] font-semibold">ATH: {ath}</span></div>
+        <div className="truncate px-0.5"><span className="text-[#F5F5F5] font-semibold">Vol: {vol}</span></div>
+        <div className="truncate px-0.5"><span className="text-[#BDBDBD]">Holders: {holders}</span></div>
+        <div className="truncate px-0.5"><span className="text-[#BDBDBD]">DH: {dh}</span></div>
+        <div className="truncate px-0.5">T10: <span className="text-[#BDBDBD]">{t10}</span></div>
       </div>
       {/* Mini chart */}
-      <div className="w-full flex justify-center items-center my-1 rounded-lg bg-gradient-to-br from-black via-zinc-900 to-slate-900 shadow-[0_0_12px_0_#38bdf8cc] border border-blue-400/20">
+      <div className="w-full flex justify-center items-center my-1 rounded-lg bg-[#0C0C0C] shadow-[0_0_12px_0_rgba(0,0,0,0.13)] border border-[#23262F]">
         <MiniCandleChart candles={candles} />
       </div>
       {/* Animated bonding progress bar */}
@@ -349,15 +348,15 @@ export default function FeedCard({
       {/* Buttons row */}
       <div className="flex gap-1 mt-1">
         <button
-          className="flex-1 flex items-center justify-center gap-1 py-1.5 px-2 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white text-[13px] font-bold uppercase shadow-lg border border-blue-400/60 group/button hover:shadow-blue-400/40 focus:ring-2 focus:ring-blue-400/60 hover:scale-105 focus:scale-105 min-w-0 drop-shadow-[0_0_8px_#6366f1cc]"
+          className="flex-1 flex items-center justify-center gap-1 py-1.5 px-2 rounded-full bg-[#0C0C0C] border border-[#23262F] text-[#F5F5F5] text-[13px] font-mono font-bold uppercase shadow group/button hover:shadow-blue-400/10 hover:bg-[#23262F] focus:ring-2 focus:ring-blue-400/20 hover:scale-105 focus:scale-105 min-w-0 tracking-widest"
           onClick={handleBuy}
           disabled={buying}
-          style={{ minWidth: 0, letterSpacing: '0.04em' }}
+          style={{ minWidth: 0, letterSpacing: '0.08em' }}
         >
           {buying ? <span className="font-bold">Buy...</span> : <span className="font-bold">Buy {buyAmount}</span>}
         </button>
         <button
-          className="flex-1 flex items-center justify-center gap-1 py-1 px-1.5 rounded-full bg-white/10 text-slate-200 border border-slate-400/40 hover:bg-blue-500/10 hover:text-blue-400 hover:border-blue-400/60 transition font-semibold shadow group/button hover:shadow-blue-400/20 hover:scale-105 focus:scale-105 text-[11px] min-w-0"
+          className="flex-1 flex items-center justify-center gap-1 py-1 px-1.5 rounded-full bg-[#181A20] text-[#A0A0A0] border border-[#23262F] hover:bg-[#23262F] hover:text-[#F5F5F5] hover:border-blue-400/40 transition font-mono font-semibold shadow group/button hover:shadow-blue-400/10 hover:scale-105 focus:scale-105 text-[11px] min-w-0"
           style={{ minWidth: 0 }}
         >
           <DetailsIcon />
@@ -365,7 +364,7 @@ export default function FeedCard({
         </button>
       </div>
       {buySuccess && (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 font-bold animate-bounce">
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#101113] text-[#F5F5F5] px-6 py-3 rounded-xl shadow-lg z-50 font-mono font-bold animate-bounce border border-[#23262F]">
           Purchase of {buyAmount} {name} complete!
         </div>
       )}

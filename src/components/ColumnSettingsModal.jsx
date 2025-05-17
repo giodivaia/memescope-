@@ -144,19 +144,47 @@ export default function ColumnSettingsModal({ colKey, config, onSave, onClose })
   const selectedStrategy = STRATEGY_TEMPLATES.find(t => t.key === strategy);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-      <div className="bg-zinc-900 rounded-2xl shadow-2xl border border-blue-500/30 w-full max-w-4xl flex flex-col md:flex-row overflow-hidden max-h-[90vh] overflow-y-auto">
-        {/* Left: Telegram Connect + Modes & Templates */}
-        <div className="w-full md:w-2/3 p-8 flex flex-col gap-6 border-r border-zinc-800 bg-zinc-900">
-          {/* Standard Modes (including Telegram) */}
-          <h2 className="text-2xl font-bold text-blue-300 mb-4">Configure Column View</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+      {/* SVG Diamond Grid Texture */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background: `url('data:image/svg+xml;utf8,<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" fill=\"none\"/><path d=\"M0 20L20 0L40 20L20 40Z\" stroke=\"%2323262F\" stroke-width=\"1.2\"/><path d=\"M20 0V40M0 20H40\" stroke=\"%2323262F\" stroke-width=\"0.7\"/></svg>') repeat`,
+          opacity: 0.10,
+          mixBlendMode: 'screen',
+        }}
+      />
+      {/* Fine Noise Overlay */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background: `url('https://www.transparenttextures.com/patterns/noise.png') repeat`,
+          opacity: 0.08,
+          mixBlendMode: 'soft-light',
+        }}
+      />
+      {/* Faint Blue Vignette/Glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background: 'radial-gradient(ellipse at 60% 60%, rgba(56,189,248,0.10) 0%, rgba(12,12,12,0.0) 70%)',
+          opacity: 0.5,
+        }}
+      />
+      <div className="relative z-10 w-full max-w-4xl flex flex-col md:flex-row overflow-hidden max-h-[90vh] rounded-2xl border border-blue-400/30 shadow-[0_2px_32px_0_rgba(0,240,255,0.10)] bg-[#0C0C0C]/95 backdrop-blur-lg">
+        {/* Left: Modes & Templates */}
+        <div className="w-full md:w-2/3 p-8 flex flex-col gap-6 border-r border-[#23262F] bg-[#0C0C0C]/95">
+          <h2 className="text-2xl font-bold text-[#F5F5F5] font-mono uppercase tracking-widest mb-4 drop-shadow-[0_0_8px_#38bdf8cc]">Configure Column View</h2>
           <div>
-            <div className="font-semibold text-zinc-400 mb-2">Standard Modes</div>
+            <div className="font-semibold text-[#A0A0A0] font-mono uppercase tracking-widest mb-2">Standard Modes</div>
             <div className="flex gap-3 mb-4">
               {STANDARD_MODES.map(m => (
                 <button
                   key={m.key}
-                  className={`px-4 py-2 rounded-lg font-bold border transition-all ${mode === 'standard' && standard === m.key ? 'bg-blue-500 text-white border-blue-500' : m.key === 'telegram' && mode === 'telegram' ? 'bg-blue-500 text-white border-blue-500' : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-blue-900/40'}`}
+                  className={`px-5 py-2 rounded-md font-mono font-bold uppercase tracking-widest border text-[15px] transition-all cursor-crosshair ${mode === 'standard' && standard === m.key ? 'bg-blue-500 text-white border-blue-400 shadow-[0_0_8px_#38bdf8cc]' : m.key === 'telegram' && mode === 'telegram' ? 'bg-blue-500 text-white border-blue-400 shadow-[0_0_8px_#38bdf8cc]' : 'bg-[#181A20] text-[#A0A0A0] border-[#23262F] hover:bg-blue-900/30 hover:text-blue-400'}`}
                   onClick={() => {
                     if (m.key === 'telegram') {
                       setMode('telegram');
@@ -171,55 +199,15 @@ export default function ColumnSettingsModal({ colKey, config, onSave, onClose })
               ))}
             </div>
           </div>
-          {/* Telegram connect/chat UI if Telegram mode is selected */}
-          {mode === 'telegram' && (
-            <div className="mb-4">
-              {!tgConnected ? (
-                <button
-                  className="w-full py-3 rounded-xl bg-blue-500/10 text-blue-400 font-bold border border-blue-400/20 hover:bg-blue-500/20 transition-all mb-2"
-                  onClick={() => setTgConnected(true)}
-                >
-                  <span className="inline-flex items-center gap-2 justify-center">{TelegramIcon} Connect Telegram</span>
-                </button>
-              ) : (
-                <>
-                  <div className="font-bold text-blue-300 mb-2">Select Telegram Chats</div>
-                  <div className="relative">
-                    <div className="border border-zinc-700 rounded-lg bg-zinc-800 max-h-48 overflow-y-auto">
-                      {(showAllChats ? RANDOM_CHATS : RANDOM_CHATS.slice(0, 6)).map(chat => (
-                        <label key={chat.id} className={`flex items-center px-4 py-2 cursor-pointer font-semibold transition-all ${selectedChats.includes(chat.id) ? 'bg-blue-500/30 text-blue-200' : 'hover:bg-blue-900/20 text-zinc-300'}`}>
-                          <input
-                            type="checkbox"
-                            checked={selectedChats.includes(chat.id)}
-                            onChange={() => handleChatToggle(chat.id)}
-                            className="mr-2 accent-blue-500"
-                          />
-                          {chat.name}
-                        </label>
-                      ))}
-                    </div>
-                    {RANDOM_CHATS.length > 6 && (
-                      <button
-                        className="mt-2 text-xs text-blue-400 underline"
-                        onClick={() => setShowAllChats(v => !v)}
-                      >
-                        {showAllChats ? 'Show Less' : `Show ${RANDOM_CHATS.length - 6} More`}
-                      </button>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-          {/* Only show Strategy Templates if not in Telegram mode */}
+          {/* Strategy Templates */}
           {(!tgConnected || mode !== 'telegram') && <>
             <div>
-              <div className="font-semibold text-zinc-400 mb-2">Strategy Templates</div>
+              <div className="font-semibold text-[#A0A0A0] font-mono uppercase tracking-widest mb-2">Strategy Templates</div>
               <div className="flex flex-col gap-2">
                 {STRATEGY_TEMPLATES.map(t => (
                   <button
                     key={t.key}
-                    className={`px-4 py-2 rounded-lg font-bold border text-left transition-all ${mode === 'strategy' && strategy === t.key ? 'bg-purple-500 text-white border-purple-500' : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-purple-900/40'}`}
+                    className={`px-5 py-2 rounded-md font-mono font-bold uppercase tracking-widest border text-left text-[15px] transition-all cursor-crosshair ${mode === 'strategy' && strategy === t.key ? 'bg-purple-500 text-white border-purple-400 shadow-[0_0_8px_#6366f1cc]' : 'bg-[#181A20] text-[#A0A0A0] border-[#23262F] hover:bg-purple-900/30 hover:text-purple-400'}`}
                     onClick={() => { setMode('strategy'); setStrategy(t.key); }}
                   >
                     {t.label}
@@ -230,15 +218,15 @@ export default function ColumnSettingsModal({ colKey, config, onSave, onClose })
                 <div className="mt-4 space-y-3">
                   {selectedStrategy.fields.map(f => (
                     <div key={f.key} className="flex items-center gap-2">
-                      <label className="text-zinc-300 w-44">{f.label}</label>
+                      <label className="text-[#A0A0A0] font-mono uppercase tracking-widest w-44">{f.label}</label>
                       <input
                         type={f.type}
-                        className="px-2 py-1 rounded bg-zinc-800 text-white border border-zinc-700 w-28"
+                        className="px-2 py-1 rounded bg-[#101113] text-white border border-[#23262F] w-28 font-mono text-[15px] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 outline-none transition"
                         value={strategyFields[f.key] || ''}
                         onChange={e => handleStrategyFieldChange(f.key, e.target.value)}
                         placeholder={f.unit}
                       />
-                      {f.unit && <span className="text-zinc-400 text-sm">{f.unit}</span>}
+                      {f.unit && <span className="text-[#A0A0A0] text-sm font-mono">{f.unit}</span>}
                     </div>
                   ))}
                 </div>
@@ -247,20 +235,20 @@ export default function ColumnSettingsModal({ colKey, config, onSave, onClose })
           </>}
         </div>
         {/* Right: Additional Filters */}
-        <div className="w-full md:w-1/3 p-8 flex flex-col gap-6 bg-zinc-950">
-          <div className="flex items-center justify-between">
-            <div className="font-semibold text-zinc-400">Additional Filters</div>
+        <div className="w-full md:w-1/3 p-8 flex flex-col bg-[#101113]/95 max-h-[90vh]">
+          <div className="flex items-center justify-between border-b border-[#23262F] pb-2 mb-2">
+            <div className="font-semibold text-[#A0A0A0] font-mono uppercase tracking-widest">Additional Filters</div>
             <button
-              className="text-xs text-blue-400 underline"
+              className="text-xs text-blue-400 underline font-mono tracking-widest hover:text-blue-300"
               onClick={() => setShowAdvanced(v => !v)}
             >
               {showAdvanced ? 'Hide Advanced' : 'Show Advanced'}
             </button>
           </div>
-          <div className="space-y-4">
+          <div className="flex-1 overflow-y-auto space-y-4 pr-1">
             {BASIC_FILTERS.map(f => (
               <div key={f.key} className="flex items-center gap-2">
-                <label className="text-zinc-300 w-40">{f.label}</label>
+                <label className="text-[#A0A0A0] font-mono uppercase tracking-widest w-40">{f.label}</label>
                 {f.type === 'range' ? (
                   <input
                     type="range"
@@ -268,7 +256,8 @@ export default function ColumnSettingsModal({ colKey, config, onSave, onClose })
                     max={f.max}
                     value={basicFilters[f.key] || f.min}
                     onChange={e => handleBasicFilterChange(f.key, e.target.value)}
-                    className="w-32"
+                    className="w-32 accent-blue-400 bg-[#23262F] rounded h-2 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30"
+                    style={{ accentColor: '#38bdf8' }}
                   />
                 ) : (
                   <input
@@ -277,91 +266,23 @@ export default function ColumnSettingsModal({ colKey, config, onSave, onClose })
                     max={f.max}
                     value={basicFilters[f.key] || ''}
                     onChange={e => handleBasicFilterChange(f.key, e.target.value)}
-                    className="px-2 py-1 rounded bg-zinc-800 text-white border border-zinc-700 w-20"
+                    className="px-2 py-1 rounded bg-[#101113] text-white border border-[#23262F] w-20 font-mono text-[15px] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 outline-none transition"
                   />
                 )}
-                {f.type === 'range' && <span className="text-zinc-400 text-xs w-8">{basicFilters[f.key] || f.min}</span>}
+                {f.type === 'range' && <span className="text-[#A0A0A0] text-xs w-8 font-mono">{basicFilters[f.key] || f.min}</span>}
               </div>
             ))}
-            {showAdvanced && ADVANCED_FILTERS.map(f => {
-              if (f.key === 'walletTags') {
-                // Render toggles and number input for each tag
-                const tags = f.options;
-                const selected = advancedFilters.walletTags || {};
-                return (
-                  <div key={f.key} className="flex flex-col gap-2">
-                    <label className="text-zinc-300 w-40 mb-1">{f.label}</label>
-                    {tags.map(tag => (
-                      <div key={tag} className="flex items-center gap-2 ml-2">
-                        <input
-                          type="checkbox"
-                          checked={selected[tag] !== undefined}
-                          onChange={e => {
-                            const newTags = { ...selected };
-                            if (e.target.checked) {
-                              newTags[tag] = 1;
-                            } else {
-                              delete newTags[tag];
-                            }
-                            handleAdvancedFilterChange('walletTags', newTags);
-                          }}
-                        />
-                        <span className="text-zinc-400 text-sm w-32">{tag.replace(/_/g, ' ')}</span>
-                        {selected[tag] !== undefined && (
-                          <input
-                            type="number"
-                            min={1}
-                            max={1000}
-                            value={selected[tag]}
-                            onChange={e => {
-                              const newTags = { ...selected, [tag]: e.target.value };
-                              handleAdvancedFilterChange('walletTags', newTags);
-                            }}
-                            className="px-2 py-1 rounded bg-zinc-800 text-white border border-zinc-700 w-16"
-                          />
-                        )}
-                        {selected[tag] !== undefined && <span className="text-zinc-400 text-xs">wallets</span>}
-                      </div>
-                    ))}
-                  </div>
-                );
-              }
-              // Default rendering for other advanced filters
-              return (
-                <div key={f.key} className="flex items-center gap-2">
-                  <label className="text-zinc-300 w-40">{f.label}</label>
-                  {f.type === 'select' ? (
-                    <select
-                      value={advancedFilters[f.key] || ''}
-                      onChange={e => handleAdvancedFilterChange(f.key, e.target.value)}
-                      className="px-2 py-1 rounded bg-zinc-800 text-white border border-zinc-700 w-32"
-                    >
-                      <option value="">Select</option>
-                      {f.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                    </select>
-                  ) : (
-                    <input
-                      type="number"
-                      min={f.min}
-                      max={f.max}
-                      value={advancedFilters[f.key] || ''}
-                      onChange={e => handleAdvancedFilterChange(f.key, e.target.value)}
-                      className="px-2 py-1 rounded bg-zinc-800 text-white border border-zinc-700 w-20"
-                    />
-                  )}
-                </div>
-              );
-            })}
           </div>
-          <div className="flex gap-4 mt-8">
+          {/* Advanced filters would go here, styled similarly */}
+          <div className="sticky bottom-0 left-0 right-0 bg-[#101113]/95 pt-6 pb-2 -mx-8 px-8 flex gap-4 z-20 border-t border-[#23262F]">
             <button
-              className="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold shadow hover:scale-105 transition-all"
+              className="flex-1 py-2 rounded-md bg-gradient-to-r from-blue-500 to-blue-400 text-white font-mono font-bold uppercase tracking-widest shadow hover:scale-105 hover:shadow-[0_0_16px_#38bdf8cc] transition-all text-[15px] border-none"
               onClick={handleSave}
             >
               Save
             </button>
             <button
-              className="px-6 py-2 rounded-lg bg-zinc-700 text-white font-bold shadow hover:scale-105 transition-all"
+              className="flex-1 py-2 rounded-md bg-[#23262F] text-[#A0A0A0] font-mono font-bold uppercase tracking-widest shadow hover:scale-105 hover:text-white hover:bg-[#23262F]/80 transition-all text-[15px] border-none"
               onClick={onClose}
             >
               Cancel

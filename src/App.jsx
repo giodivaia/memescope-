@@ -18,6 +18,8 @@ import { ColumnVisibilityProvider } from './context/ColumnVisibilityContext';
 import LayoutWithColumnBar from './components/LayoutWithColumnBar';
 
 const NAV = [
+  { name: 'Discover', path: '/discover' },
+  { name: 'Create', path: '/create' },
   { name: 'FAQ', path: '/faq' },
   { name: 'Import', path: '/import' },
 ];
@@ -29,31 +31,23 @@ function App() {
     <ColumnVisibilityProvider>
       <DashboardProvider>
         <DndProvider backend={HTML5Backend}>
-          <div className="min-h-screen bg-zinc-900 text-white">
+          <div className="min-h-screen">
             {/* Top Navigation Bar */}
-            <div className="flex justify-between items-center px-6 py-4 bg-black/80 backdrop-blur-md shadow-sm border-b border-neutral-800 sticky top-0 z-10">
-              <div className="flex items-center space-x-4">
-                <h1 
-                  className="text-xl font-bold text-white cursor-pointer" 
-                  onClick={() => navigate('/')}
-                >
-                  SCOPE<sup className="text-white">2</sup>
-                </h1>
-                <div className="flex space-x-4 text-sm text-white/80">
-                  {NAV.map((item) => (
-                    <button
-                      key={item.name}
-                      onClick={() => navigate(item.path)}
-                      className="font-semibold px-4 py-2 rounded-full transition-all duration-200 shadow-inner hover:text-white/90"
-                    >
-                      {item.name}
-                    </button>
-                  ))}
-                </div>
+            <div className="navbar-tactical">
+              <div className="navbar-ares-tactical" onClick={() => navigate('/')}>ARES</div>
+              <div className="navbar-links-center">
+                {NAV.map((item, idx) => (
+                  <button
+                    key={item.name}
+                    onClick={() => navigate(item.path)}
+                    className={`navbar-link navbar-link-animate`}
+                    style={{ animationDelay: `${0.08 * idx + 0.1}s` }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
               </div>
-              <div className="text-sm text-right text-purple-400 italic drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]">
-                <span className="font-semibold text-purple-500">news2pump</span> powered
-              </div>
+              <div className="navbar-right">GET IN TOUCH</div>
             </div>
 
             <main className="flex flex-col items-center justify-center flex-1 w-full">

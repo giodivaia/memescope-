@@ -420,7 +420,7 @@ export default function FeedGrid({ buyAmount, columns: externalColumns, setColum
   }, []);
 
   return (
-    <div className="w-full min-h-[80vh] flex justify-center items-start px-2 md:px-6 lg:px-10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black overflow-x-auto">
+    <div className="w-full min-h-[80vh] flex justify-center items-start px-2 md:px-6 lg:px-10 overflow-x-auto">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="feed-columns" direction="horizontal">
           {(provided) => (

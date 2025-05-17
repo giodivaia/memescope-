@@ -42,8 +42,12 @@ export default function FeedPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] px-6 pt-4 pb-10 text-white">
-      <div className="flex items-start justify-start mb-6 gap-4 w-full max-w-7xl mx-auto">
+    <div style={{ background: '#0C0C0C' }} className="cursor-reticle min-h-screen w-full px-6 pt-4 pb-10 text-white">
+      {/* Toolbar Area */}
+      <div
+        className="w-full flex items-center px-0 py-0 min-h-[48px] bg-[#0C0C0C]"
+        style={{ borderRadius: 0, margin: 0, boxShadow: 'none', maxWidth: '100%' }}
+      >
         <QuickBuyBar amount={buyAmount} onAmountChange={setBuyAmount} />
         <FeedToolbar
           onSettings={() => setShowSettingsModal(true)}
